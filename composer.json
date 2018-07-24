@@ -1,0 +1,21 @@
+{
+    "name": "ginkgo/yii2-tqt",
+    "description": "Yii2 TQT",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeff",
+            "email": "kousuutetu@163.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ginkgo\\tqt\\": ""
+        }
+    }
+}
