@@ -25,7 +25,7 @@ class Client extends \yii\httpclient\Client
 
     public function init()
     {
-        if (empty($this->apikey)) {
+        if (empty($this->appid)) {
             throw new InvalidConfigException('Client::appid cannot be empty.');
         }
         if (empty($this->secret)) {
