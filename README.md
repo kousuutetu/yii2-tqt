@@ -30,8 +30,11 @@ Use it in component :
 ```php
     'components' => [
         'tqt' => [
-            'apikey' => '',
-            'secret' => '',
+            'class' => 'ginkgo\tqt\Client',
+            'appid' => 'YOUR_APPID',
+            'secret' => 'YOUR_SECRET',
         ],
     ],
+
+    $response = Yii::$app->tqt->get('URL', ['PARAMS']);
 ```

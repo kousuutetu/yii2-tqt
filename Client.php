@@ -7,34 +7,33 @@ use yii\base\InvalidConfigException;
 class Client extends \yii\httpclient\Client
 {
     /**
-     * @var string API key.
+     * @var string appid.
      */
-    $apikey = '';
+    public $appid;
     /**
-     * @var string API secret.
+     * @var string secret.
      */
-    $secret = '';
-    /**
-     * @var Transport|array|string|callable HTTP message transport.
-     */
-    private $_transport = 'yii\httpclient\CurlTransport';
+    public $secret;
     /**
      * @var array request object configuration.
      */
     public $requestConfig = [
         'options' => [
-            'ENCODING' => 'gzip'
+            'ENCODING' => ''
         ]
     ];
 
     public function init()
     {
         if (empty($this->apikey)) {
-            throw new InvalidConfigException('Client::apikey cannot be empty.');
+            throw new InvalidConfigException('Client::appid cannot be empty.');
         }
         if (empty($this->secret)) {
             throw new InvalidConfigException('Client::secret cannot be empty.');
         }
+
+        $this->setTransport('yii\httpclient\CurlTransport');
+        parent::init();
     }
 
     public function beforeSend($request)
@@ -43,7 +42,7 @@ class Client extends \yii\httpclient\Client
         if (isset($data['sign'])) {
             unset($data['sign']);
         }
-        $data['api_key'] = $this->apikey;
+        $data['api_key'] = $this->appid;
         $data['ts'] = time();
 
         ksort($data);
@@ -58,7 +57,7 @@ class Client extends \yii\httpclient\Client
 
         $data['sign'] = md5($string);
 
-        $event->request->setData($data);
+        $request->setData($data);
         parent::beforeSend($request);
     }
 }
